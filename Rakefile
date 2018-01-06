@@ -21,6 +21,7 @@
 ## --- END LICENSE BLOCK ---
 
 require 'u3d'
+require 'json'
 UI = U3dCore::UI
 
 #RuboCop::RakeTask.new
@@ -37,7 +38,7 @@ def update_cache
   current_cache = File.exist?(public_cache_path) ? File.read(public_cache_path) : ""
   new_cache = File.read(path)
 
-  if (ignore_last_update(current_cache) != ignore_last_update(new_cache))
+  if (JSON.parse(ignore_last_update(current_cache)) != JSON.parse(ignore_last_update(new_cache)))
     File.write(public_cache_path, new_cache)
     true
   else
@@ -46,7 +47,7 @@ def update_cache
 end
 
 def ignore_last_update(s)
-  s.gsub!(/(\"lastupdate\":)[0-9]+,/, '')
+  s.gsub(/(\"lastupdate\":)[0-9]+,/, '')
 end
 
 def run_command(command, error_message = nil)
@@ -62,8 +63,8 @@ task :update do
   if update_cache
     UI.message("Cache updated")
     sh 'git add docs/cache.json'
-    sh 'git config --global user.email "ci@dragonbox.com"'
-    sh 'git config --global user.name "CI"'
+    sh 'git config --global user.email "ci@dragonbox.com"' if `git config --global user.email`.empty?
+    sh 'git config --global user.name "CI"' if `git config --global user.name`.empty?
     sh "git commit -m 'Automated cache update'"
     sh 'git push origin master'
   end
