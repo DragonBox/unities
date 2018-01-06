@@ -65,7 +65,7 @@ task :update do
     sh 'git config --global user.email "ci@dragonbox.com"'
     sh 'git config --global user.name "CI"'
     sh "git commit -m 'Automated cache update'"
-    sh 'git push'
+    sh 'git push origin master'
   end
 end
 
