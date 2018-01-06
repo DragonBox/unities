@@ -62,7 +62,9 @@ task :update do
   if update_cache
     UI.message("Cache updated")
     sh 'git add docs/cache.json'
-    sh "git commit -m 'Cache update'"
+    sh 'git config --global user.email "ci@dragonbox.com"'
+    sh 'git config --global user.name "CI"'
+    sh "git commit -m 'Automated cache update'"
     sh 'git push'
   end
 end
