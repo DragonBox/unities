@@ -50,10 +50,13 @@ jobs:
           command: |
             bundle exec rake update
 workflows:
-   version: 2
-   hourly:
-     triggers:
-       - schedule:
-           cron: "0 * * * *"
+  version: 2
+  commit-workflow:
+    jobs:
+      - build
+  hourly:
+    triggers:
+      - schedule:
+        cron: "0 * * * *"
       jobs:
         - build
