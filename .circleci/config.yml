@@ -49,3 +49,15 @@ jobs:
           name: update cache
           command: |
             bundle exec rake update
+workflows:
+   version: 2
+   hourly:
+     triggers:
+       - schedule:
+           cron: "0 * * * *"
+           filters:
+             branches:
+               only:
+                 - master
+      jobs:
+        - build
