@@ -1,5 +1,7 @@
-PATH
-  remote: ../u3d
+GIT
+  remote: https://github.com/lacostej/u3d
+  revision: e10e83daa9afcb5b4c5a2a5a8bcd725897fd9315
+  branch: u3dcache
   specs:
     u3d (1.0.13)
       colored (>= 1.2, < 2.0.0)
