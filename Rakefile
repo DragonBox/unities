@@ -24,21 +24,20 @@ require 'u3d'
 require 'json'
 UI = U3dCore::UI
 
-#RuboCop::RakeTask.new
-
+# RuboCop::RakeTask.new
 
 # update cache and return cache path
 def update_cache
   U3dCore::Helper.operating_systems.each do |os|
     U3d::Cache.new(force_os: os, force_refresh: true)
   end
-  path = File.expand_path("cache.json", U3d::Cache.default_os_path)
+  path = File.expand_path('cache.json', U3d::Cache.default_os_path)
 
-  public_cache_path = File.expand_path("cache.json", "docs")
-  current_cache = File.exist?(public_cache_path) ? File.read(public_cache_path) : ""
+  public_cache_path = File.expand_path('cache.json', 'docs')
+  current_cache = File.exist?(public_cache_path) ? File.read(public_cache_path) : ''
   new_cache = File.read(path)
 
-  if (JSON.parse(ignore_last_update(current_cache)) != JSON.parse(ignore_last_update(new_cache)))
+  if JSON.parse(ignore_last_update(current_cache)) != JSON.parse(ignore_last_update(new_cache))
     File.write(public_cache_path, new_cache)
     true
   else
@@ -61,7 +60,7 @@ end
 
 task :update do
   if update_cache
-    UI.message("Cache updated")
+    UI.message('Cache updated')
     sh 'git add docs/cache.json'
     sh 'git config --global user.email "ci@dragonbox.com"' if `git config --global user.email`.empty?
     sh 'git config --global user.name "CI"' if `git config --global user.name`.empty?
@@ -69,6 +68,5 @@ task :update do
     sh 'git push origin master'
   end
 end
-
 
 task default: %i[update]

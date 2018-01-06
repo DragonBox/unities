@@ -46,7 +46,7 @@ jobs:
 
       # run tests!
       - run:
-          name: update cache
+          name: update u3dcache
           command: |
             bundle exec rake update
 workflows:
