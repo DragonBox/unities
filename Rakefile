@@ -47,7 +47,7 @@ def update_cache
 end
 
 def ignore_last_update(s)
-  s.gsub(/(\"lastupdate\":)[0-9]+,/, '')
+  s.gsub(/(\"lastupdate\":)[0-9]+,/, '"lastupdate":0,')
 end
 
 def run_command(command, error_message = nil)
