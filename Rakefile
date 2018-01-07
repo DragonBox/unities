@@ -34,15 +34,13 @@ def update_cache
   path = File.expand_path('cache.json', U3d::Cache.default_os_path)
 
   public_cache_path = 'versions.json'
-  current_cache = File.exist?(public_cache_path) ? File.read(public_cache_path) : ''
+  current_cache = File.exist?(public_cache_path) ? File.read(public_cache_path) : '{}'
   new_cache = File.read(path)
 
   if JSON.parse(ignore_last_update(current_cache)) != JSON.parse(ignore_last_update(new_cache))
-    File.write(public_cache_path, new_cache)
-    true
-  else
-    false
+    UI.message("Cache data updated")
   end
+  File.write(public_cache_path, new_cache)
 end
 
 def ignore_last_update(s)
@@ -60,14 +58,12 @@ end
 
 task :update do
   sh 'git checkout gh-pages'
-  if update_cache
-    UI.message('Cache updated')
-    sh 'git add versions.json'
-    sh 'git config --global user.email "ci@dragonbox.com"' if `git config --global user.email`.empty?
-    sh 'git config --global user.name "CI"' if `git config --global user.name`.empty?
-    sh "git commit -m 'Automated cache update'"
-    sh 'git push origin gh-pages'
-  end
+  update_cache
+  sh 'git add versions.json'
+  sh 'git config --global user.email "ci@dragonbox.com"' if `git config --global user.email`.empty?
+  sh 'git config --global user.name "CI"' if `git config --global user.name`.empty?
+  sh "git commit -m 'Automated cache update'"
+  sh 'git push origin gh-pages'
 end
 
 task default: %i[update]
