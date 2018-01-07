@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/lacostej/u3d
-  revision: e10e83daa9afcb5b4c5a2a5a8bcd725897fd9315
+  revision: 8522c3bfe7f2556ed4a7b0110ea6f5e1347df3b4
   branch: u3dcache
   specs:
     u3d (1.0.13)
