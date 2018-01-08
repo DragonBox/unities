@@ -1,7 +1,6 @@
 GIT
-  remote: https://github.com/lacostej/u3d
-  revision: 8522c3bfe7f2556ed4a7b0110ea6f5e1347df3b4
-  branch: u3dcache
+  remote: https://github.com/DragonBox/u3d
+  revision: e57f06139677e95dc414014396583469808bd60b
   specs:
     u3d (1.0.13)
       colored (>= 1.2, < 2.0.0)
