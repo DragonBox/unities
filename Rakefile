@@ -22,6 +22,7 @@
 
 require 'u3d'
 require 'json'
+require 'fileutils'
 UI = U3dCore::UI
 
 # RuboCop::RakeTask.new
@@ -34,13 +35,19 @@ def update_cache
   path = File.expand_path('cache.json', U3d::Cache.default_os_path)
 
   public_cache_path = 'versions.json'
+  version_directory = 'v' + U3d::Cache.CACHE_VERSION
+  FileUtils.mkdir_p version_directory
+  expanded_cache_path = File.join(version_directory, public_cache_path)
   current_cache = File.exist?(public_cache_path) ? File.read(public_cache_path) : '{}'
   new_cache = File.read(path)
 
   if JSON.parse(ignore_last_update(current_cache)) != JSON.parse(ignore_last_update(new_cache))
     UI.message("Cache data updated")
   end
+  # One version is public display /versions.json
+  # The other is for u3d usage /vSOME_VERSION/versions.json
   File.write(public_cache_path, new_cache)
+  File.write(expanded_cache_path, new_cache)
 end
 
 def ignore_last_update(s)
