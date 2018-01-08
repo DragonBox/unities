@@ -35,7 +35,7 @@ def update_cache
   path = File.expand_path('cache.json', U3d::Cache.default_os_path)
 
   public_cache_path = 'versions.json'
-  version_directory = 'v' + U3d::Cache.CACHE_VERSION
+  version_directory = "v#{U3d::Cache::CACHE_VERSION}"
   FileUtils.mkdir_p version_directory
   expanded_cache_path = File.join(version_directory, public_cache_path)
   current_cache = File.exist?(public_cache_path) ? File.read(public_cache_path) : '{}'
