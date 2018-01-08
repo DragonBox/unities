@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/niezbop/u3d
-  revision: 40c1987d2921b7b3e328223ea167ab8e4464aac7
+  revision: 314bb173c68da990bc2c18698e94c6a29a103228
   branch: cache/versioning
   specs:
     u3d (1.0.13)
