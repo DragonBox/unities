@@ -24,6 +24,7 @@ require 'u3d'
 require 'json'
 require 'fileutils'
 UI = U3dCore::UI
+VERSION = '1'
 
 # RuboCop::RakeTask.new
 
@@ -35,7 +36,7 @@ def update_cache
   path = File.expand_path('cache.json', U3d::Cache.default_os_path)
 
   public_cache_name = 'versions.json'
-  version_directory = 'v1'
+  version_directory =  'v' + VERSION
 
   FileUtils.mkdir_p version_directory
   public_cache_path = File.join(version_directory, public_cache_name)
@@ -66,7 +67,7 @@ end
 task :update do
   sh 'git checkout gh-pages'
   update_cache
-  sh 'git add versions.json'
+  sh "git add v#{VERSION}/versions.json"
   sh 'git config --global user.email "ci@dragonbox.com"' if `git config --global user.email`.empty?
   sh 'git config --global user.name "CI"' if `git config --global user.name`.empty?
   sh "git commit -m 'Automated cache update'"
