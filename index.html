@@ -89,7 +89,7 @@
         seconds = secondsPassed % 60;
         minutesPassed = Math.floor(secondsPassed/60);
         minutes = minutesPassed % 60;
-        hours = Math.floor(minutesPassed/24);
+        hours = Math.floor(minutesPassed/60);
         toUpdate.innerText = "Last update was " + hours + " hours, " + minutes + " minutes and " + seconds + " seconds ago.";
       }
     }
