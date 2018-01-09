@@ -3,10 +3,104 @@
 <head>
   <title>Unities - a u3d powered data site about Unity releases</title>
   <meta charset = "UTF-8" />
+  <script type="text/javascript">
+    var reader = new XMLHttpRequest() || new ActiveXObject('MSXML2.XMLHTTP');
+    var json;
+    var lastUpdates = [];
+    var updater = setInterval(displayTime, 1000);
+    var refresher = setInterval(loadFile, 1000 * 60 * 10) // 10 minutes
+
+    function loadFile() {
+      reader.open('get', 'v1/versions.json', true); 
+      reader.onreadystatechange = displayContents;
+      reader.send(null);
+    }
+
+    function displayContents() {
+      if(reader.readyState==4) {
+        json = reader.responseText;
+
+        versionList = document.getElementById('versionList');
+        versions = JSON.parse(json);
+
+        for(os in versions) {
+          osHeader = document.createElement("h4");
+          osHeader.innerText = os;
+          versionList.appendChild(osHeader);
+
+          osContent = document.createElement("div");
+          osContent.setAttribute("class", "osdisplay");
+          versionList.appendChild(osContent);
+
+          if(versions[os]['lastupdate']) {
+            lastupdate = new Date(versions[os]['lastupdate'] * 1000)
+            lastUpdates[os] = lastupdate;
+            
+            timeContent = document.createElement("div");
+            timeContent.innerText = "Parsing last update...";
+            timeContent.setAttribute("id", "time." + os);
+            timeContent.setAttribute("class", "timedisplay");
+            osContent.appendChild(timeContent);
+          }
+          if(versions[os]['versions']) {
+            // TABLE
+            versionsTable = document.createElement("table");
+            versionsTable.setAttribute("class", "versiontable");
+            osContent.appendChild(versionsTable);
+
+            // HEADER
+            versionRowHeader = document.createElement("tr");
+
+            versionNameHeader = document.createElement("th");
+            versionNameHeader.innerText = "Version";
+            versionRowHeader.appendChild(versionNameHeader);
+
+            versionUrlHeader = document.createElement("th");
+            versionUrlHeader.innerText = "Url";
+            versionRowHeader.appendChild(versionUrlHeader);
+            
+            versionsTable.appendChild(versionRowHeader);
+
+            // CONTENT
+            for(version in versions[os]['versions']) {
+              versionRow = document.createElement("tr");
+
+              versionEntry = document.createElement("td");
+              versionEntry.innerText = version;
+              versionRow.appendChild(versionEntry);
+
+              urlEntry = document.createElement("td");
+              urlEntry.innerText = versions[os]['versions'][version];
+              versionRow.appendChild(urlEntry);
+
+              versionsTable.appendChild(versionRow);
+            }
+          }
+        }
+      }
+    }
+
+    function displayTime() {
+      now = Date.now();
+      for(os in lastUpdates) {
+        toUpdate = document.getElementById("time." + os)
+        timelapse = now - lastupdate;
+        secondsPassed = Math.floor(timelapse/1000);
+        seconds = secondsPassed % 60;
+        minutesPassed = Math.floor(secondsPassed/60);
+        minutes = minutesPassed % 60;
+        hours = Math.floor(minutesPassed/24);
+        toUpdate.innerText = "Last update was " + hours + " hours, " + minutes + " minutes and " + seconds + " seconds ago.";
+      }
+    }
+  </script>
 </head>
-<body>
+<body onload="loadFile();">
   <h1>Unity versions</h1>
   <a href="v1/versions.json">versions.json</a>. Structured information about stable, beta and patch releases of Unity releases. Data is updated hourly.
+  
+  <h3>Versions</h3>
+  <div id="versionList"></div>
 
   <h3>Links</h3>
   <ul>
