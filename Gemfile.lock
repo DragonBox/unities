@@ -1,7 +1,6 @@
 GIT
-  remote: https://github.com/niezbop/u3d
-  revision: 314bb173c68da990bc2c18698e94c6a29a103228
-  branch: cache/versioning
+  remote: https://github.com/DragonBox/u3d
+  revision: e57f06139677e95dc414014396583469808bd60b
   specs:
     u3d (1.0.13)
       colored (>= 1.2, < 2.0.0)
