@@ -30,6 +30,7 @@ VERSION = '1'
 
 # update cache and return cache path
 def update_cache
+  U3dCore::Globals.verbose = true
   U3dCore::Helper.operating_systems.each do |os|
     U3d::Cache.new(force_os: os, force_refresh: true)
   end
@@ -62,6 +63,10 @@ def run_command(command, error_message = nil)
     UI.user_error!(error_message)
   end
   output
+end
+
+task :test_update do
+  update_cache
 end
 
 task :update do

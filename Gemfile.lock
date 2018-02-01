@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/DragonBox/u3d
-  revision: c8ff4dfac840014b37a68feecd30e7c55231fd9c
+  revision: 7499333c1427a057d1c14957256e38434225c0a3
   specs:
-    u3d (1.0.13)
+    u3d (1.0.15)
       colored (>= 1.2, < 2.0.0)
       commander (>= 4.4.0, < 5.0.0)
       file-tail (>= 1.2.0)
@@ -15,7 +15,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     colored (1.2)
-    commander (4.4.3)
+    commander (4.4.4)
       highline (~> 1.7.2)
     file-tail (1.2.0)
       tins (~> 1.0)
