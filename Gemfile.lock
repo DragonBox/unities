@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/DragonBox/u3d
-  revision: d26d35dc70010056b5547a85285aceb41cfb9e28
+  revision: 511da182befaee11cfb279b48b9b9bb44fef4dca
   specs:
-    u3d (1.0.17)
+    u3d (1.0.20)
       colored (>= 1.2, < 2.0.0)
       commander (>= 4.4.0, < 5.0.0)
       file-tail (>= 1.2.0)
@@ -23,7 +23,7 @@ GEM
     highline (1.7.10)
     inifile (3.0.0)
     plist (3.4.0)
-    rake (12.3.0)
+    rake (12.3.1)
     security (0.1.3)
     tins (1.16.3)
 
