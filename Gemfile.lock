@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/DragonBox/u3d
-  revision: 511da182befaee11cfb279b48b9b9bb44fef4dca
+  revision: db12c1584824f28589606596a107bd0cc0e09af8
   specs:
     u3d (1.0.20)
       colored (>= 1.2, < 2.0.0)
