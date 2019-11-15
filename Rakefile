@@ -75,7 +75,7 @@ task :update do
   sh "git add v#{VERSION}/versions.json"
   sh 'git config --global user.email "ci@dragonbox.com"' if `git config --global user.email`.empty?
   sh 'git config --global user.name "CI"' if `git config --global user.name`.empty?
-  sh 'git commit -m "Automated cache update"'
+  sh 'git commit -m "Automated cache update [ci skip]"'
   sh 'git push origin gh-pages'
 end
 
